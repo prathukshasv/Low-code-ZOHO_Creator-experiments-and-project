@@ -1,0 +1,1887 @@
+/*
+ * Author       : prathukshasv10a39
+ * Generated on : 20-Oct-2026 22:46:37
+ * Version      : 1.0
+ */
+ application "Student Skill and Certification Tracker"
+ {
+ 	date format = "dd-MMM-yyyy"
+ 	time zone = "Asia/Kolkata"
+ 	time format = "24-hr"
+
+ 	forms
+	{
+		form Certification
+		{
+			success message = "Certification Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			Certificate_ID
+			(
+    			type = autonumber
+				start index = 1
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Student
+			(
+				type = picklist	
+				values  = Student_Profile.ID
+    			displayformat = [" " + Student_Name.prefix + " " + Student_Name.first_name + " " + Student_Name.last_name + " " + Student_Name.suffix]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Skill
+			(
+				type = picklist	
+				values  = Skill_Master.ID
+    			displayformat = [Skill_Name]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Certification_Name
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Issuing_Organisation
+			(
+				type = picklist
+				maxchar = 100
+				values = {"NPTEL","Zoho","Coursera","Oracle","Microsoft","Other"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Credential_ID
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Issue_Date
+			(
+    			type = date
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Expiry_Date
+			(
+    			type = date
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Score
+			(
+    			type = percentage
+				displayname = "Score_Percentage"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have File_upload
+			(
+    			type = upload file
+				displayname = "File upload"
+    			file count = 10
+				browse = local_drive, google_docs
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Verification_Status
+			(
+				type = picklist
+				maxchar = 100
+				values = {"Submitted","Verified","Rejected"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Certification_Status
+			(
+				type = picklist
+				maxchar = 100
+				values = {"Valid","Expiring Soon","Expired"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Renewal_Storage
+			(
+				type = picklist
+				maxchar = 100
+				values = {"Not Due","Renewal Pending","Renewed"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+			blueprint components
+			{
+				stages = {"Not Due","Renewal Pending","Renewed"}
+			}
+		}
+		form Skill_Assessment
+		{
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			Student
+			(
+				type = picklist	
+				values  = Student_Profile.ID
+    			displayformat = [" " + Student_Name.prefix + " " + Student_Name.first_name + " " + Student_Name.last_name + " " + Student_Name.suffix]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Skill
+			(
+				type = picklist	
+				values  = Skill_Master.ID
+    			displayformat = [Skill_Name]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Assessment_Date
+			(
+    			type = date
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Score
+			(
+				type = number
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Remarks
+			(
+    			type = textarea
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Skill_Master
+		{
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have Skill_Name
+			(
+    			type = text
+				displayname = "Skill_Name "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Skill_Category
+			(
+				type = picklist
+				maxchar = 100
+				values = {"Programming","Data and AI","Cloud","Networking","Soft Skills","Low-Code"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Skill_Description
+			(
+    			type = textarea
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Student_Profile
+		{
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have Student_Name
+			(
+    			type = name
+     			prefix
+     			(
+	     			 type = prefix
+	     			 displayname ="Prefix"
+	     			 visibility = false
+	     			 value = {"Mr.","Mrs.","Ms."}
+     			) 
+     			first_name
+     			(
+	     			 type = first_name
+	     			 displayname ="First Name"
+     			) 
+     			last_name
+     			(
+	     			 type = last_name
+	     			 displayname ="Last Name"
+     			) 
+     			suffix
+     			(
+	     			 type = suffix
+	     			 displayname ="Suffix"
+	     			 visibility = false
+     			) 
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			must have unique Register_Number
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Department
+			(
+				type = picklist
+				displayname = "Department "
+				maxchar = 100
+				values = {"AIML","CSE","IT","EEE","AIDS","ECE"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Year_of_Study
+			(
+				type = radiobuttons
+				maxchar = 100
+				values = {"I","II","III","IV"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Email
+			(
+    			type = email
+				maxchar = 80
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			Phone_Number
+			(
+    			type = phonenumber
+				displayname = "Phone"
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			Mentor_Email
+			(
+    			type = email
+				maxchar = 80
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			Photo
+			(
+    			type = image
+				source  = file
+				aspect ratio = original
+				camera = primary
+				show gallery = true
+				switch camera = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Student_Skills
+			(
+				type = grid
+				Skill_Master
+				(
+					type = picklist	
+					values  = Skill_Master.ID
+    				displayformat = [Skill_Name]
+					sortorder = ascending
+					width = medium
+				)
+				Proficiency
+				(
+					type = picklist
+					displayname = "Proficiency "
+					maxchar = 100
+					values = {"Beginner","Intermediate","Advanced"}
+					width = medium
+				)
+	 			row = 2
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+	}
+	reports
+	{
+		default list Skill_Master_Report
+		{
+			displayName = "Skill_Master Report"
+			show all rows from Skill_Master    
+			(
+				Skill_Name as "Skill_Name "
+				Skill_Category
+				Skill_Description
+			)
+		}
+		default list Student_Profile_Report
+		{
+			displayName = "Student_Profile Report"
+			show all rows from Student_Profile    
+			(
+				Student_Name 
+				Register_Number
+				Department as "Department "
+				Year_of_Study
+				Email
+				Phone_Number as "Phone"
+				(
+					displayformat = plainnumber 
+				)
+				Mentor_Email
+				Photo
+				Student_Skills.Skill_Master as "Student_Skills"
+			)
+		}
+		default list All_Certifications
+		{
+			displayName = "All Certifications"
+			show all rows from Certification    
+			(
+				Certificate_ID
+				Student
+				Skill
+				Certification_Name
+				Issuing_Organisation
+				Credential_ID
+				Issue_Date
+				Expiry_Date
+				Score as "Score_Percentage"
+				File_upload as "File upload"
+				Verification_Status
+				Certification_Status
+				Renewal_Storage
+			)
+		}
+		default list Skill_Assessment_Report
+		{
+			displayName = "Skill_Assessment Report"
+			show all rows from Skill_Assessment    
+			(
+				Student
+				Skill
+				Assessment_Date
+				Score
+				Remarks
+			)
+		}
+		kanban Certification_Kanban
+		{
+			displayName = "Certification_Kanban"
+			show all rows from Certification    
+			(
+				Certificate_ID
+				Student
+				Skill
+				Certification_Name
+				Issuing_Organisation
+				Credential_ID
+				Issue_Date
+				Expiry_Date
+				Score as "Score_Percentage"
+				File_upload as "File upload"
+				Verification_Status
+				Certification_Status
+			)
+			options
+			(
+	 			display field = Verification_Status
+	 		)
+		}
+		calendar Certification_Calender
+		{
+			displayName = "Certification_Calender"
+			show all rows from Certification    
+			(
+				Certificate_ID
+				Student
+				Skill
+				Certification_Name
+				Issuing_Organisation
+				Credential_ID
+				Issue_Date
+				Expiry_Date
+				Score as "Score_Percentage"
+				File_upload as "File upload"
+				Verification_Status
+				Certification_Status
+			)
+			options
+			(
+				display field = Certification_Name
+				start date = Expiry_Date
+			)
+		}
+		timeline Certification_Timeline
+		{
+			displayName = "Certification_Timeline"
+			show all rows from Certification    
+			(
+				Certificate_ID
+				Student
+				Skill
+				Certification_Name
+				Issuing_Organisation
+				Credential_ID
+				Issue_Date
+				Expiry_Date
+				Score as "Score_Percentage"
+				File_upload as "File upload"
+				Verification_Status
+				Certification_Status
+			)
+			options
+			(
+				display field = Certification_Name
+				start date = Issue_Date
+				end date = Expiry_Date
+			)
+		}
+	}
+
+
+		 functions
+		 {
+			 Deluge
+			 {
+				 string getCertificationStatus(date expiryDate)
+                 {
+                 	if(expiryDate == null)
+                 	{
+                 		status = "Valid";
+                 	}
+                 	else if(expiryDate < zoho.currentdate)
+                 	{
+                 		status = "Expired";
+                 	}
+                 	else if(expiryDate <= zoho.currentdate.addDay(30))
+                 	{
+                 		status = "Expiring Soon";
+                 	}
+                 	else
+                 	{
+                 		status = "Valid";
+                 	}
+                 	return status;
+                 }
+			 }
+		 }
+
+
+		workflow
+		{
+		form
+		{
+			Valid_Certificate_Query as "Valid_Certificate_Query"
+			{
+				type =  form
+				form = Certification
+
+				record event = on add
+
+				on load
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											validCerts = Certification[Certification_Status == "Valid"] range from 1 to 10;
+										alert "Valid certificates found (first 10): " + validCerts.count();
+						)
+					}
+				}
+
+			}
+			Validate_dates as "Validate_dates"
+			{
+				type =  form
+				form = Certification
+
+				record event = on add
+
+				on validate
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											if(input.Expiry_Date != null && input.Expiry_Date < input.Issue_Date)
+										{
+											alert "Expiry date must be after the issue date";
+											cancel submit;
+										}
+						)
+					}
+				}
+
+			}
+			Check_Duplicate as "Check_Duplicate"
+			{
+				type =  form
+				form = Certification
+
+				record event = on add
+
+				on validate
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											dup = Certification[Student == input.Student && Certification_Name == input.Certification_Name];
+										if(dup.count() > 0)
+										{
+											alert "This certificate is already recorded for this student";
+											cancel submit;
+										}
+						)
+					}
+				}
+
+			}
+			Set_Status as "Set_Status"
+			{
+				type =  form
+				form = Certification
+
+				record event = on add
+
+				on validate
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											input.Certification_Status = thisapp.getCertificationStatus(input.Expiry_Date);
+						)
+					}
+				}
+
+			}
+			Notify_Student as "Notify_Student"
+			{
+				type =  form
+				form = Certification
+
+				record event = on add
+
+				on success
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											stu = Student_Profile[ID == input.Student];
+										sendmail
+										[
+											from :zoho.adminuserid
+											to :stu.Email
+											subject :"Certificate submitted: " + input.Certification_Name
+											message :"Dear " + stu.Student_Name + ", your certificate " + input.Certification_Name + " has been submitted and is waiting for verification."
+										]
+						)
+					}
+				}
+
+			}
+			Check_API as "Check_API"
+			{
+				type =  form
+				form = Certification
+
+				record event = on add
+
+				on load
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											resp = invokeurl
+										[
+											url :"https://jsonplaceholder.typicode.com/users/1"
+											type :GET
+										];
+										alert "REST API connected. Test user: " + resp.get("name");
+						)
+					}
+				}
+
+			}
+		}
+
+		schedule
+		{
+			Expiry_Remainder as "Expiry_Remainder"
+			{
+				type =  schedule
+				start = "2026-10-20 00:42:00"
+				frequency = daily
+				time zone = "Asia/Kolkata"
+				on start
+				{
+					actions 
+					{
+					on load
+					(
+						today = zoho.currentdate;
+										limit = zoho.currentdate.addDay(30);
+										for each  c in Certification[Expiry_Date >= today && Expiry_Date <= limit]
+										{
+											stu = Student_Profile[ID == c.Student];
+											sendmail
+											[
+												from :zoho.adminuserid
+												to :stu.Email
+												subject :"Certificate expiring soon: " + c.Certification_Name
+												message :"Dear " + stu.Student_Name + ", your certificate " + c.Certification_Name + " expires on " + c.Expiry_Date + ". Please renew it."
+											]
+										}
+					)
+					}
+				}
+			}
+		}
+
+		approval
+		{
+			Verify_Certificate as "Verify_Certificate"
+			{
+				type =  approval
+				form = Certification
+				display fields = [Certificate_ID,Student,Skill,Certification_Name,Issuing_Organisation,Credential_ID,Issue_Date]
+				on start
+				{
+				}
+				on level 1
+				{
+					on approve 
+					{
+						actions 
+						{
+							sendmail
+							(
+								from : "zoho.loginuserid"
+								to : approver.submitter
+								subject : "Approval Request"
+								message : "Your request has been approved."
+							)
+						}
+						actions 
+						{
+						on load
+						(
+							rec = Certification[ID == input.ID];
+												rec.Verification_Status="Verified";
+						)
+						}
+						actions 
+						{
+						on load
+						(
+							rec = Certification[ID == input.ID];
+												rec.Verification_Status="Verified";
+						)
+						}
+					}
+					on reject
+					{
+
+						actions 
+						{
+							sendmail
+							(
+								from : "zoho.loginuserid"
+								to : approver.submitter
+								subject : "Approval Request"
+								message : "Your request has been rejected."
+							)
+						}
+					}
+				}
+			}
+		}
+
+		blueprint
+		{
+    			Renewal_Stage as "Renewal_Stage"
+    			{
+        			type = Blueprint
+        			form = Certification
+        			start
+        			{
+            			start stage = "Not Due"
+            			chart data
+            			{
+                			from port : B
+                			to port   : T3
+                			position  : "0 0"
+                			path      : [27.849999999999994,36.84,27.849999999999994,46.84,27.849999999999994,54.67,29.857662455240845,54.67,29.857662455240845,62.5,29.857662455240845,72.5]
+            			}
+        			}
+        			stages
+        			{
+           			"Not Due"
+           			{
+               			chart data
+               			{
+                   			position : "-18.556385804186366 72.5"
+               			}
+           			}
+           			"Renewal Pending"
+           			{
+               			chart data
+               			{
+                   			position : "-35.11904761904765 236.2144915603129"
+               			}
+           			}
+           			"Renewed"
+           			{
+               			chart data
+               			{
+                   			position : "-12.023809523809405 386.80972965555094"
+               			}
+           			}
+        			}
+        			transitions
+        			{
+    				Mark_Renewed as "Mark_Renewed"
+    				{
+         				type = normal
+         				from stage = "Renewal Pending"
+         				to stage = "Renewed"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+         				chart data
+         				{
+             				from port : B3
+             				to port   : T3
+             				path      : [39.55198153637566,287.8223213555345,39.55198153637566,297.8223213555345,39.55198153637566,337.3160255055427,38.56724068874281,337.3160255055427,38.56724068874281,376.80972965555094,38.56724068874281,386.80972965555094]
+        				}
+  				}
+    				Start_Renewal as "Start_Renewal"
+    				{
+         				type = normal
+         				from stage = "Not Due"
+         				to stage = "Renewal Pending"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+         				chart data
+         				{
+             				from port : B3
+             				to port   : T3
+             				path      : [29.857662455240845,124.10782979522162,29.857662455240845,134.10782979522162,29.857662455240845,180.16116067776727,39.55198153637566,180.16116067776727,39.55198153637566,226.2144915603129,39.55198153637566,236.2144915603129]
+        				}
+  				}
+        			}
+    			}
+		}
+
+
+	}
+	share_settings
+	{
+			"Read"
+			{
+				name = "Read"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have read permission for all components\n"
+			}
+			"Write"
+			{
+				name = "Write"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have write permission for all components\n"
+			}
+			"Administrator"
+			{
+				name = "Administrator"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have all the permissions.\n"
+			}
+			"Developer"
+			{
+				name = "Developer"
+				type = Developer
+				permissions = {Chat:false, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Developer Profile\n"
+			}
+			"Mentor_Access"
+			{
+				name = "Mentor_Access"
+				type = Users_Permissions
+				permissions = {Chat:false, Predefined:false, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Mentors can view and verify all student certification records\n"
+				ModulePermissions
+				{
+					Skill_Assessment
+					{
+						allFieldsVisible= true 
+					}
+					Certification
+					{
+						enabled= Create,Tab 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							All_Certifications={"View"}
+						}
+					}
+					Skill_Master
+					{
+						allFieldsVisible= true 
+					}
+					Student_Profile
+					{
+						allFieldsVisible= true 
+					}
+					Certification_BlueprintJob
+					{
+						enabled= Create,Tab 
+						allFieldsVisible= true 
+					}
+				}
+			}
+			"Student_Access"
+			{
+				name = "Student_Access"
+				type = Users_Permissions
+				permissions = {Chat:false, Predefined:false, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Students can access and view their own certification records\n"
+				ModulePermissions
+				{
+					Skill_Assessment
+					{
+						allFieldsVisible= true 
+					}
+					Certification
+					{
+						enabled= Create,Tab 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							All_Certifications={"View"}
+						}
+					}
+					Skill_Master
+					{
+						allFieldsVisible= true 
+					}
+					Student_Profile
+					{
+						allFieldsVisible= true 
+					}
+					Certification_BlueprintJob
+					{
+						enabled= Create,Tab 
+						allFieldsVisible= true 
+					}
+				}
+			}
+			"Customer"
+			{
+				name = "Customer"
+				type = Customer_Portal
+				permissions = {Chat:false, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This is the default profile having only add and view permission.\n"
+			}
+			roles
+			{
+				"CEO"
+				{
+					description = "User belonging to this role can access data of all other users."
+					"Mentor"
+					{
+						description = ""
+						"Student"
+						{
+							description = ""
+						}
+					}
+				}
+			}
+			Sharing_Rules
+			{
+				"Mentor_Sees_Student_Certificates"
+				{
+					form = "Certification"
+					sharedFromType = Roles
+					sharedToType = Roles
+					levelOfAccess = "Read"
+					sharedFrom = "Student"
+					sharedTo = "Mentor"
+				}
+			}
+	}
+
+	customize
+	{
+		icon
+		{
+			text = "STU"
+			background color = "theme"
+			foreground color = "#ffffff"
+		}
+	}
+
+	web
+	{
+		forms
+		{
+			form Certification
+			{
+				label placement = left
+			}
+			form Skill_Assessment
+			{
+				label placement = left
+			}
+			form Skill_Master
+			{
+				label placement = left
+			}
+			form Student_Profile
+			{
+				label placement = left
+			}
+		}
+		reports
+		{
+			report Skill_Master_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Skill_Name as "Skill_Name "
+								Skill_Category
+								Skill_Description
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Skill_Name as "Skill_Name "
+								Skill_Category
+								Skill_Description
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Student_Profile_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Student_Name
+								Register_Number
+								Department as "Department "
+								Year_of_Study
+								Email
+								Phone_Number as "Phone"
+								Mentor_Email
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Student_Name
+								Register_Number
+								Department as "Department "
+								Year_of_Study
+								Email
+								Phone_Number as "Phone"
+								Mentor_Email
+								Photo
+								Student_Skills.Skill_Master as "Student_Skills"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report All_Certifications
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Certificate_ID
+								Student
+								Skill
+								Certification_Name
+								Issuing_Organisation
+								Credential_ID
+								Issue_Date
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Certificate_ID
+								Student
+								Skill
+								Certification_Name
+								Issuing_Organisation
+								Credential_ID
+								Issue_Date
+								Expiry_Date
+								Score as "Score_Percentage"
+								File_upload as "File upload"
+								Verification_Status
+								Certification_Status
+								Renewal_Storage
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Skill_Assessment_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Student
+								Skill
+								Assessment_Date
+								Score
+								Remarks
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Student
+								Skill
+								Assessment_Date
+								Score
+								Remarks
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Certification_Kanban
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = 1
+							fields
+							(
+								Certificate_ID
+								Student
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Certificate_ID
+								Student
+								Skill
+								Certification_Name
+								Issuing_Organisation
+								Credential_ID
+								Issue_Date
+								Expiry_Date
+								Score as "Score_Percentage"
+								File_upload as "File upload"
+								Verification_Status
+								Certification_Status
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Certification_Calender
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = 1
+							fields
+							(
+								Certificate_ID
+								Student
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Certificate_ID
+								Student
+								Skill
+								Certification_Name
+								Issuing_Organisation
+								Credential_ID
+								Issue_Date
+								Expiry_Date
+								Score as "Score_Percentage"
+								File_upload as "File upload"
+								Verification_Status
+								Certification_Status
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Certification_Timeline
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = 1
+							fields
+							(
+								Certificate_ID
+								Student
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Certificate_ID
+								Student
+								Skill
+								Certification_Name
+								Issuing_Organisation
+								Credential_ID
+								Issue_Date
+								Expiry_Date
+								Score as "Score_Percentage"
+								File_upload as "File upload"
+								Verification_Status
+								Certification_Status
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+		}
+		menu
+		{
+			space Space
+			{
+				displayname = "Space"
+				icon = "objects-spaceship"
+
+				section Skill_Master
+				{
+					displayname = "Skill_Master"
+					icon = "tech-desktop"
+					form  Skill_Master
+					{
+						icon = "tech-desktop"
+					}
+					report Skill_Master_Report
+					{
+						icon = "tech-desktop"
+					}
+				}
+				section ZC_App_Preferences
+				{
+					displayname = "App Preferences"
+					icon = "design-app"
+					systemcomponent
+					{
+						type = localization
+						displayname = "Language Selection"
+						icon = "education-language"
+					}
+					systemcomponent
+					{
+						type = connection
+						displayname = "Integrations"
+						icon = "tech-2-connection"
+					}
+				}
+				section ZC_Approvals
+				{
+					displayname = "Approvals"
+					icon = "ui-2-hourglass"
+					systemcomponent
+					{
+						type = approval
+						approval status = pending
+						displayname = "Pending Tasks"
+						icon = "ui-2-hourglass"
+					}
+					systemcomponent
+					{
+						type = approval
+						approval status = completed
+						displayname = "Completed Tasks"
+						icon = "design-todo"
+					}
+				}
+				section SharedAnalytics_Section
+				{
+					type = shared_user_report_section
+					displayname = "Reports"
+					icon = "business-chart-bar-33"
+				}
+				section Student_Profile
+				{
+					displayname = "Student_Profile"
+					icon = "tech-desktop"
+					form  Student_Profile
+					{
+						icon = "tech-desktop"
+					}
+					report Student_Profile_Report
+					{
+						icon = "tech-desktop"
+					}
+				}
+				section Certifications
+				{
+					displayname = "Certifications"
+					icon = "education-paper-diploma"
+					form  Certification
+					{
+						icon = "education-paper-diploma"
+					}
+					report All_Certifications
+					{
+						icon = "tech-desktop"
+					}
+					report Certification_Kanban
+					{
+						icon = "education-paper-diploma"
+					}
+					report Certification_Calender
+					{
+						icon = "education-paper-diploma"
+					}
+					report Certification_Timeline
+					{
+						icon = "education-paper-diploma"
+					}
+				}
+				section Skill_Assessment
+				{
+					displayname = "Skill_Assessment"
+					icon = "tech-desktop"
+					form  Skill_Assessment
+					{
+						icon = "tech-desktop"
+					}
+					report Skill_Assessment_Report
+					{
+						icon = "tech-desktop"
+					}
+				}
+			}
+			preference
+			{
+				icon
+				{
+					style = outline
+				}
+			}
+		}
+		customize
+		{
+			font = "lato"
+			color options
+			{
+				color = "11"
+			}
+			logo
+			{
+				preference = "app_icon"
+				placement = "left"
+			}
+		}
+	}
+	phone
+	{
+		forms
+		{
+			form Certification
+			{
+				label placement = auto
+			}
+			form Skill_Assessment
+			{
+				label placement = auto
+			}
+			form Skill_Master
+			{
+				label placement = auto
+			}
+			form Student_Profile
+			{
+				label placement = auto
+			}
+		}
+		customize
+		{
+			layout = twocolumn
+			font = "default"
+			style = "3"
+			color options
+			{
+				color = chryslerpurple
+			}
+			logo
+			{
+				preference = "none"
+			}
+		}
+	}
+	tablet
+	{
+		forms
+		{
+			form Certification
+			{
+				label placement = auto
+			}
+			form Skill_Assessment
+			{
+				label placement = auto
+			}
+			form Skill_Master
+			{
+				label placement = auto
+			}
+			form Student_Profile
+			{
+				label placement = auto
+			}
+		}
+		customize
+		{
+			layout = slidingpane
+			font = "default"
+			style = "3"
+			color options
+			{
+				color = amethyst
+			}
+			logo
+			{
+				preference = "none"
+			}
+		}
+	}
+	translation
+{
+{"Language_Settings":{"LANGAGUE_WITH_LOGIN":"browser"}}
+}
+}
